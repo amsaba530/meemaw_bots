@@ -10,8 +10,6 @@ responses <- c(
   "I love puddin."
 )
 
-RESPONSE_TEXT <- sample(responses, 1)
-
 #* @post /
 function(req, res) {
   
@@ -20,16 +18,23 @@ function(req, res) {
   if (!is.null(body) && body != "") {
     data <- fromJSON(body)
     
-    if (!is.null(data$text) && grepl("puddin", tolower(data$text))) {
+    # Only respond to messages from humans (ignore bots)
+    if (!is.null(data$sender_type) && data$sender_type == "user") {
       
-      POST(
-        url = "https://api.groupme.com/v3/bots/post",
-        body = list(
-          bot_id = BOT_ID,
-          text = RESPONSE_TEXT
-        ),
-        encode = "json"
-      )
+      # Check if message contains "puddin"
+      if (!is.null(data$text) && grepl("puddin", tolower(data$text))) {
+        
+        RESPONSE_TEXT <- sample(responses, 1)
+        
+        POST(
+          url = "https://api.groupme.com/v3/bots/post",
+          body = list(
+            bot_id = BOT_ID,
+            text = RESPONSE_TEXT
+          ),
+          encode = "json"
+        )
+      }
     }
   }
   
