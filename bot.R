@@ -19,9 +19,8 @@ function(req, res) {
     data <- fromJSON(body)
     
     # Only respond to messages from humans (ignore bots)
-    if (!is.null(data$sender_id) && data$sender_id != BOT_ID) {
+    if (!is.null(data$sender_type) && data$sender_type != "bot") {
       
-      # Check if message contains "puddin"
       if (!is.null(data$text) && grepl("puddin", tolower(data$text))) {
         
         RESPONSE_TEXT <- sample(responses, 1)
