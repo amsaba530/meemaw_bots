@@ -7,7 +7,8 @@ responses <- c(
   "the proof is in the puddin! 🍮",
   "Did someone say puddin?",
   "PUDDIN ALERT 🚨",
-  "I love puddin."
+  "I love puddin.",
+  "puddin deez nuts in your mouth"
 )
 
 #* @post /
