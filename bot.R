@@ -2,7 +2,7 @@ library(plumber)
 library(httr)
 library(jsonlite)
 
-BOT_ID <- "8419eb14fa5d6f89290a8b7c7c"
+BOT_ID <- "e11160588ecb53c6eb29c12276"
 responses <- c(
   "the proof is in the puddin! 🍮",
   "Did someone say puddin?",
@@ -19,7 +19,7 @@ function(req, res) {
     data <- fromJSON(body)
     
     # Only respond to messages from humans (ignore bots)
-    if (!is.null(data$sender_type) && data$sender_type == "user") {
+    if (!is.null(data$sender_id) && data$sender_id != BOT_ID) {
       
       # Check if message contains "puddin"
       if (!is.null(data$text) && grepl("puddin", tolower(data$text))) {
